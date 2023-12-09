@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "pistonpushmod",
+	"version": "${version}",
+	"name": "PistonPushMod",
+	"description": "This is a mod to allow players to change the imposed piston push limit in minecraft via a gamerule",
+	"authors": [
+		"RodoFire"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/pistonpushmod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.louis.pistonpushmod.PistonPushMod"
+		],
+		"client": [
+			"net.louis.pistonpushmod.PistonPushModClient"
+		],
+		"fabric-datagen": [
+			"net.louis.pistonpushmod.PistonPushModDataGenerator"
+		]
+	},
+	"mixins": [
+		"pistonpushmod.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": ">=1.20",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
