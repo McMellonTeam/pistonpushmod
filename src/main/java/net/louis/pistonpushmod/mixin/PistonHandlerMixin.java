@@ -1,49 +1,38 @@
 package net.louis.pistonpushmod.mixin;
 
 import com.google.common.collect.Lists;
-import com.google.common.primitives.Booleans;
 import net.louis.pistonpushmod.PistonPushMod;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PistonBlock;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.block.piston.PistonHandler;
-import net.minecraft.client.network.ServerInfo;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.gen.Accessor;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(PistonHandler.class)
 public abstract class PistonHandlerMixin {
-    @Shadow
     @Final
+    @Shadow
     private World world;
     @Shadow
     @Final
     private BlockPos posFrom;
     @Shadow
-    @Final
-    private final List<BlockPos> movedBlocks = Lists.newArrayList();
+    private List<BlockPos> movedBlocks = Lists.newArrayList();
     @Shadow
     @Final
-    private  Direction motionDirection;
+    private Direction motionDirection;
     @Shadow
-    @Final
-    private final List<BlockPos> brokenBlocks = Lists.newArrayList();
+    private List<BlockPos> brokenBlocks = Lists.newArrayList();
 
     @Shadow
     static boolean isBlockSticky(BlockState state) {
@@ -60,6 +49,7 @@ public abstract class PistonHandlerMixin {
         }
         return isBlockSticky(state) || isBlockSticky(adjacentState);
     }
+
 
 
     /**
@@ -91,8 +81,9 @@ public abstract class PistonHandlerMixin {
             BlockPos blockPos = pos.offset(this.motionDirection.getOpposite(), i);
             BlockState blockState2 = blockState;
             blockState = this.world.getBlockState(blockPos);
-            if (blockState.isAir() || !isAdjacentBlockStuck(blockState2, blockState) || !PistonBlock.isMovable(blockState, this.world, blockPos, this.motionDirection, false, this.motionDirection.getOpposite()) || blockPos.equals(this.posFrom)) break;
-            if (++i + this.movedBlocks.size() <=maxpush) continue;
+            if (blockState.isAir() || !isAdjacentBlockStuck(blockState2, blockState) || !PistonBlock.isMovable(blockState, this.world, blockPos, this.motionDirection, false, this.motionDirection.getOpposite()) || blockPos.equals(this.posFrom))
+                break;
+            if (++i + this.movedBlocks.size() <= maxpush) continue;
             return false;
         }
         int j = 0;
@@ -108,7 +99,8 @@ public abstract class PistonHandlerMixin {
                 this.setMovedBlocks(j, l);
                 for (int m = 0; m <= l + j; ++m) {
                     BlockPos blockPos3 = this.movedBlocks.get(m);
-                    if (!isBlockSticky(this.world.getBlockState(blockPos3)) || this.tryMoveAdjacentBlock(blockPos3)) continue;
+                    if (!isBlockSticky(this.world.getBlockState(blockPos3)) || this.tryMoveAdjacentBlock(blockPos3))
+                        continue;
                     return false;
                 }
                 return true;
@@ -132,6 +124,7 @@ public abstract class PistonHandlerMixin {
             ++k;
         }
     }
+
     /**
      * @author don't know what to put here
      * @reason don't know what to put here
@@ -161,16 +154,12 @@ public abstract class PistonHandlerMixin {
         for (Direction direction : Direction.values()) {
             BlockPos blockPos;
             BlockState blockState2;
-            if (direction.getAxis() == this.motionDirection.getAxis() || !isAdjacentBlockStuck(blockState2 = this.world.getBlockState(blockPos = pos.offset(direction)), blockState) || this.tryMove(blockPos, direction)) continue;
+            if (direction.getAxis() == this.motionDirection.getAxis() || !isAdjacentBlockStuck(blockState2 = this.world.getBlockState(blockPos = pos.offset(direction)), blockState) || this.tryMove(blockPos, direction))
+                continue;
             return false;
         }
         return true;
     }
-
-
-
-
-
 
 
 }
