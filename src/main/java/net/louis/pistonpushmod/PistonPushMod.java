@@ -17,7 +17,6 @@ public class PistonPushMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		System.out.println();
-		LOGGER.info("Hello Fabric world!");
+		LOGGER.info("Starting PistonPushMod!");
 	}
 }

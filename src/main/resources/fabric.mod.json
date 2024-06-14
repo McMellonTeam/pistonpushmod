@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "pistonpushmod",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"name": "PistonPushMod",
 	"description": "This is a mod to allow players to change the imposed piston push limit in minecraft via a gamerule",
 	"authors": [
@@ -23,8 +23,8 @@
 		"pistonpushmod.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.15.6",
-		"minecraft": ">=1.20.6",
+		"fabricloader": ">=0.15.11",
+		"minecraft": ">=1.21",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
